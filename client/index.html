@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Airline DApp</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Web3 from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">✈ Airline DApp</div>
+    <div class="topbar-center">
+      <label for="accountList" class="top-label">Select Account:</label>
+      <select id="accountList" onchange="switchAccount()"></select>
+      <div id="currentAccount" class="sub-label">Active: None</div>
+    </div>
+    <button class="btn-primary connect-btn" onclick="connectWallet()">Connect to Ganache</button>
+  </div>
+
+  <div class="subheader">
+    <div id="account" class="connection-label">Connected: -</div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="menu-title">Menu</div>
+      <button class="menu-btn" onclick="showSection('bookFlightSection')">📋 Book Flight</button>
+      <button class="menu-btn" onclick="showSection('checkInSection')">✈ Check-In</button>
+      <button class="menu-btn" onclick="showSection('insuranceSection')">❤️ Insurance</button>
+      <button class="menu-btn" onclick="showSection('baggageSection')">🎒 Baggage Tracking</button>
+      <button class="menu-btn" onclick="showSection('flightStatusSection')">📡 Flight Status</button>
+      <button class="menu-btn" onclick="showSection('adminSection')">👑 Admin</button>
+    </aside>
+
+    <main class="content">
+
+      <!-- Book Flight -->
+      <section id="bookFlightSection" class="card section">
+        <h2>Book a Flight</h2>
+        <div class="field-row">
+          <label for="flightID">Enter Flight ID</label>
+          <input type="number" id="flightID" placeholder="e.g. 123" />
+        </div>
+        <button class="btn-primary" onclick="bookFlight()">Book Flight</button>
+      </section>
+
+      <!-- Check-In -->
+      <section id="checkInSection" class="card section hidden">
+        <h2>Check-In</h2>
+        <p>Check in for your booked flight.</p>
+        <button class="btn-primary" onclick="checkIn()">Check-In</button>
+      </section>
+
+      <!-- Insurance -->
+      <section id="insuranceSection" class="card section hidden">
+        <h2>Buy Insurance</h2>
+        <div class="field-row">
+          <label for="insuranceTier">Select Insurance Tier</label>
+          <select id="insuranceTier">
+            <option value="1">Basic – 0.005 ETH</option>
+            <option value="2">Pro – 0.01 ETH</option>
+            <option value="3">Full – 0.02 ETH</option>
+          </select>
+        </div>
+        <button class="btn-primary" onclick="buyInsurance()">Buy Insurance</button>
+      </section>
+
+      <!-- Baggage Tracking -->
+      <section id="baggageSection" class="card section hidden">
+        <h2>Baggage Tracking</h2>
+        <button class="btn-secondary" onclick="trackBaggage()">Refresh Baggage Status</button>
+        <p id="bagStatus" class="status-text">Bag Status: -</p>
+      </section>
+
+      <!-- Flight Status -->
+      <section id="flightStatusSection" class="card section hidden">
+        <h2>Flight Status</h2>
+        <button class="btn-secondary" onclick="checkFlightStatus()">Refresh Flight Status</button>
+        <p id="flightStatus" class="status-text">Flight Status: -</p>
+      </section>
+
+      <!-- Admin Panel -->
+      <section id="adminSection" class="card section hidden">
+        <h2>Admin Panel</h2>
+
+        <div class="field-row">
+          <label for="passengerAddress">Passenger Address</label>
+          <input type="text" id="passengerAddress" placeholder="0x..." />
+        </div>
+
+        <div class="field-row">
+          <label for="newBagStatus">Update Baggage Status (number)</label>
+          <input type="number" id="newBagStatus" placeholder="e.g. 1, 2, 3" />
+          <button class="btn-primary" onclick="adminUpdateBag()">Update Baggage</button>
+        </div>
+
+        <div class="field-row">
+          <label for="newFlightStatus">Update Flight Status (text)</label>
+          <input type="text" id="newFlightStatus" placeholder="On time / Delayed / Cancelled" />
+          <button class="btn-primary" onclick="adminUpdateFlight()">Update Flight</button>
+        </div>
+
+        <div class="field-row">
+          <label for="newDepartureTime">Update Departure Time (Unix timestamp)</label>
+          <input type="number" id="newDepartureTime" placeholder="e.g. 1733030400" />
+          <button class="btn-primary" onclick="adminUpdateTime()">Update Time</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
